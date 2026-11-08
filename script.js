@@ -11,6 +11,28 @@ const TOTAL_ROUNDS = Math.ceil(PROMPTS.length / 5);
 
 let deck = [];
 let roundNumber = 0;
+let wakeLock = null;
+
+async function requestWakeLock() {
+  if (!("wakeLock" in navigator)) return;
+  try {
+    wakeLock = await navigator.wakeLock.request("screen");
+  } catch {
+    // ignore — e.g. low battery mode or unsupported browser
+  }
+}
+
+function releaseWakeLock() {
+  if (wakeLock) {
+    wakeLock.release().catch(() => {});
+    wakeLock = null;
+  }
+}
+
+document.addEventListener("visibilitychange", () => {
+  const inGame = !choiceScreen.classList.contains("hidden") || !revealScreen.classList.contains("hidden");
+  if (document.visibilityState === "visible" && inGame) requestWakeLock();
+});
 
 function shuffled(arr) {
   const copy = [...arr];
@@ -29,6 +51,7 @@ function showScreen(screen) {
 function startGame() {
   deck = shuffled(PROMPTS);
   roundNumber = 0;
+  requestWakeLock();
   renderChoices();
 }
 
@@ -64,5 +87,8 @@ document.getElementById("next-btn").addEventListener("click", renderChoices);
 document.getElementById("play-again-btn").addEventListener("click", startGame);
 
 document.querySelectorAll('[data-action="menu"]').forEach((btn) => {
-  btn.addEventListener("click", () => showScreen(startScreen));
+  btn.addEventListener("click", () => {
+    releaseWakeLock();
+    showScreen(startScreen);
+  });
 });
