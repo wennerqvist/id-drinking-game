@@ -62,3 +62,7 @@ function renderChoices() {
 document.getElementById("start-btn").addEventListener("click", startGame);
 document.getElementById("next-btn").addEventListener("click", renderChoices);
 document.getElementById("play-again-btn").addEventListener("click", startGame);
+
+document.querySelectorAll('[data-action="menu"]').forEach((btn) => {
+  btn.addEventListener("click", () => showScreen(startScreen));
+});
