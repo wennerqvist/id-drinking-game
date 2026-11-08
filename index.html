@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>ID Game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main id="start-screen" class="screen">
+  <div class="glow-blob blob-1"></div>
+  <div class="glow-blob blob-2"></div>
+
+  <h1 class="title">🪪 ID GAME</h1>
+
+  <ol class="rules">
+    <li>Everyone drops their ID on the table.</li>
+    <li>Active player picks a prompt and lines up the IDs most → least likely — <strong>don't say what it is.</strong></li>
+    <li>Next player offers sips to hear the prompt. Haggle until they accept.</li>
+    <li>Reveal it, drink up, pass the turn.</li>
+  </ol>
+
+  <button id="start-btn" class="btn btn-primary">Start Game</button>
+</main>
+
+<main id="choice-screen" class="screen hidden">
+  <p id="round-counter-choice" class="round-counter"></p>
+  <h2 class="subtitle">Pick a prompt</h2>
+  <div id="card-grid" class="card-grid"></div>
+</main>
+
+<main id="reveal-screen" class="screen hidden">
+  <p id="round-counter-reveal" class="round-counter"></p>
+  <div class="reveal-card">
+    <p id="reveal-text" class="reveal-text"></p>
+  </div>
+  <button id="next-btn" class="btn btn-primary">Next Round</button>
+</main>
+
+<main id="end-screen" class="screen hidden">
+  <div class="glow-blob blob-1"></div>
+  <div class="glow-blob blob-2"></div>
+
+  <h2 class="title end-title">🎉 Deck's Done</h2>
+  <p class="end-text">All 105 prompts have been through the table.</p>
+
+  <button id="play-again-btn" class="btn btn-primary">Play Again</button>
+</main>
+
+<script src="prompts.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
